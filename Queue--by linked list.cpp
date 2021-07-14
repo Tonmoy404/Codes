@@ -103,7 +103,7 @@ void push(int data){
     current->next = newNode;
 }
 
-void pop(){
+int pop(){
     if(Front->next==NULL){
         node *temp = Front;
         Front = NULL;
@@ -111,6 +111,7 @@ void pop(){
     }
     node *temp = Front;
     Front = temp->next;
+    return temp->val;
     delete temp;
 }
 
@@ -129,6 +130,7 @@ int main()
         int x; cin>>x;
         push(x);
     }
+    cout<<pop()<<endl;;
     print();
     return Accepted;
 }

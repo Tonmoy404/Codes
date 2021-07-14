@@ -80,66 +80,32 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-struct node{
-    int val;
-    node *left, *right;
-};
-
-node *root = NULL;
-
-void Insert(int data){
-    if(root==NULL){
-        root = new node();
-        root->val = data;
-        root->left = NULL;
-        root->right = NULL;
-        return;
-    }
-
-    node *current = root;
-    node *parent = root;
-    while(current!=NULL){
-        if(current->val > data){
-            parent = current;
-            current = current->left;
-        }
-        else{
-            parent = current;
-            current = current->right;
-        }
-    }
-    if(parent->val >data){
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->left= newNode;
-    }
-    else{
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->right= newNode;
-    }
-}
-
-void print_pre(node *current){
-    if(current==NULL) return;
-
-    cout<<current->val<<" ";
-    print_pre(current->left);
-    print_pre(current->right);
-}
 
 int main(){
-    Insert(5);
-    Insert(7);
-    Insert(6);
-    Insert(3);
-    Insert(8);
+    cout<<"Enter number of elements: ";
+    int n; cin>>n;
+    int arr[n];
+    cout<<"Enter Values: "<<endl;
+    for(int i=0; i<n; i++){
+        cin>>arr[i];
+    }
 
-    print_pre(root);
+    for(int i=0; i<n-1; i++){
+        int mini = i;
+        for(int j=i+1; j<n; j++){
+            if(arr[j]<arr[mini]){
+                mini = j;
+            }
+        }
+        int temp = arr[mini];
+        arr[mini] = arr[i];
+        arr[i] = temp;
+    }
 
-    return Accepted;
+    cout<<endl<<"Printing Elements: "<<endl;
+    for(int i=0; i<n; i++){
+        cout<<arr[i]<<" ";
+    }
+    return 0;
 }
+

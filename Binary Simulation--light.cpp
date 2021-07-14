@@ -80,66 +80,45 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-struct node{
-    int val;
-    node *left, *right;
-};
 
-node *root = NULL;
+const int mx = 100000;
+int arr[10000+7];
+int tree[100000*4];
 
-void Insert(int data){
-    if(root==NULL){
-        root = new node();
-        root->val = data;
-        root->left = NULL;
-        root->right = NULL;
-        return;
+void init(int node, int b, int e){
+    if(b==e){
+        tree[node] = arr[b];
     }
 
-    node *current = root;
-    node *parent = root;
-    while(current!=NULL){
-        if(current->val > data){
-            parent = current;
-            current = current->left;
-        }
-        else{
-            parent = current;
-            current = current->right;
-        }
-    }
-    if(parent->val >data){
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->left= newNode;
-    }
-    else{
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->right= newNode;
-    }
+    int left = node*2;
+    int right = left+1;
+    int mid = (b+e)/2;
+
+    init(left, b, mid);
+    init(right, mid+1, e);
+    tree[node] = tree[left] + tree[right];
 }
 
-void print_pre(node *current){
-    if(current==NULL) return;
+int query(int node, int b, int e, int i){
+    if(i>e || i<b) return ;
+    if(i<=b && e<=i){
+        return tree[node];
+    }
 
-    cout<<current->val<<" ";
-    print_pre(current->left);
-    print_pre(current->right);
+    int left = node*2;
+    int right = left+1;
+    int mid = (b+e)/2;
+
+    int q1 = query(left, b, mid, i);
+    int q2 = query(right, mid+1, e, i);
+
 }
 
-int main(){
-    Insert(5);
-    Insert(7);
-    Insert(6);
-    Insert(3);
-    Insert(8);
+void update(int node, int b, int e, int i, int j);
+{
+    if(i>e || j<b) return ;
 
-    print_pre(root);
 
-    return Accepted;
 }
+
+

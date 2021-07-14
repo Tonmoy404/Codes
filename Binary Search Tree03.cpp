@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define     ll              long long
 #define     ull             unsigned long long
@@ -96,10 +97,11 @@ void Insert(int data){
         return;
     }
 
-    node *current = root;
     node *parent = root;
+    node *current = root;
+
     while(current!=NULL){
-        if(current->val > data){
+        if(data < current->val){
             parent = current;
             current = current->left;
         }
@@ -108,38 +110,43 @@ void Insert(int data){
             current = current->right;
         }
     }
-    if(parent->val >data){
+
+    if(data < parent->val){
         node *newNode = new node();
         newNode->val = data;
         newNode->left = NULL;
         newNode->right = NULL;
-        parent->left= newNode;
+        parent->left = newNode;
     }
     else{
         node *newNode = new node();
         newNode->val = data;
         newNode->left = NULL;
         newNode->right = NULL;
-        parent->right= newNode;
+        parent->right = newNode;
     }
 }
 
-void print_pre(node *current){
-    if(current==NULL) return;
+void print(node *current){
+    if(current==NULL){
+        return;
+    }
 
     cout<<current->val<<" ";
-    print_pre(current->left);
-    print_pre(current->right);
+    print(current->left);
+    print(current->right);
+
 }
 
 int main(){
-    Insert(5);
-    Insert(7);
-    Insert(6);
-    Insert(3);
-    Insert(8);
+    cout<<"Enter number of elements: ";
+    int n; cin>>n;
+    cout<<"Enter values: ";
+    while(n--){
+        int x; cin>>x;
+        Insert(x);
+    }
 
-    print_pre(root);
-
+    print(root);
     return Accepted;
 }

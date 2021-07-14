@@ -81,65 +81,51 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 struct node{
-    int val;
-    node *left, *right;
+    bool endmark;
+    node *next[26+2];
+    node(){
+        endmark = false;
+        for(int i=0; i<26; i++){
+            next[i] = NULL;
+        }
+    }
 };
 
-node *root = NULL;
+node *root = new node();
 
-void Insert(int data){
-    if(root==NULL){
-        root = new node();
-        root->val = data;
-        root->left = NULL;
-        root->right = NULL;
-        return;
-    }
-
-    node *current = root;
-    node *parent = root;
-    while(current!=NULL){
-        if(current->val > data){
-            parent = current;
-            current = current->left;
+void Insert(string s){
+    node *current  = root;
+    for(int i=0; i<s.size(); i++){
+        int id = s[i] - 'a';
+        if(current->next[id]==NULL){
+            node *newNode = new node();
+            current->next[id] = newNode;
         }
-        else{
-            parent = current;
-            current = current->right;
-        }
+        current = current->next[id];
     }
-    if(parent->val >data){
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->left= newNode;
-    }
-    else{
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->right= newNode;
-    }
+    current->endmark = true;
 }
 
-void print_pre(node *current){
-    if(current==NULL) return;
-
-    cout<<current->val<<" ";
-    print_pre(current->left);
-    print_pre(current->right);
+bool Search(string s){
+    node *current = root;
+    for(int i=0; i<s.size(); i++){
+        int id = s[i]-'a';
+        if(current->next[id]==NULL) return false;
+        current = current->next[id];
+    }
+    return current->endmark;
 }
 
 int main(){
-    Insert(5);
-    Insert(7);
-    Insert(6);
-    Insert(3);
-    Insert(8);
-
-    print_pre(root);
-
+    string s;
+    cout<<"Enter inputs: "<<endl;
+    while(cin>>s && s!="stop"){
+        Insert(s);
+    }
+    cout<<"Enter a string to be searched: "<<endl;
+    while(cin>>s && s!="stop"){
+        if(Search(s)) cout<<"Found"<<endl;
+        else cout<<"Not Found"<<endl;
+    }
     return Accepted;
 }

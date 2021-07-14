@@ -80,66 +80,12 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-struct node{
-    int val;
-    node *left, *right;
-};
-
-node *root = NULL;
-
-void Insert(int data){
-    if(root==NULL){
-        root = new node();
-        root->val = data;
-        root->left = NULL;
-        root->right = NULL;
-        return;
-    }
-
-    node *current = root;
-    node *parent = root;
-    while(current!=NULL){
-        if(current->val > data){
-            parent = current;
-            current = current->left;
-        }
-        else{
-            parent = current;
-            current = current->right;
-        }
-    }
-    if(parent->val >data){
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->left= newNode;
-    }
-    else{
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
-        parent->right= newNode;
-    }
-}
-
-void print_pre(node *current){
-    if(current==NULL) return;
-
-    cout<<current->val<<" ";
-    print_pre(current->left);
-    print_pre(current->right);
-}
-
 int main(){
-    Insert(5);
-    Insert(7);
-    Insert(6);
-    Insert(3);
-    Insert(8);
-
-    print_pre(root);
-
+    int A, B, C;
+    cin>>A>>B>>C;
+    int sum1 =  A+B;
+    int sum2 = B+C;
+    int sum3 = A+C;
+    cout<<max3(sum1, sum2, sum3);
     return Accepted;
 }

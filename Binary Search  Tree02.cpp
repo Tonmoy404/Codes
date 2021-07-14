@@ -80,6 +80,7 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+
 struct node{
     int val;
     node *left, *right;
@@ -96,10 +97,11 @@ void Insert(int data){
         return;
     }
 
-    node *current = root;
     node *parent = root;
-    while(current!=NULL){
-        if(current->val > data){
+    node *current = root;
+
+    while(current != NULL){
+        if(data < current->val){
             parent = current;
             current = current->left;
         }
@@ -108,38 +110,42 @@ void Insert(int data){
             current = current->right;
         }
     }
-    if(parent->val >data){
+    if(data < parent->val){
         node *newNode = new node();
         newNode->val = data;
         newNode->left = NULL;
         newNode->right = NULL;
         parent->left= newNode;
     }
+
     else{
         node *newNode = new node();
         newNode->val = data;
         newNode->left = NULL;
         newNode->right = NULL;
-        parent->right= newNode;
+        parent->right = newNode;
     }
 }
 
-void print_pre(node *current){
-    if(current==NULL) return;
+void pre_print(node *current){
+    if(current==NULL){
+        return;
+    }
 
     cout<<current->val<<" ";
-    print_pre(current->left);
-    print_pre(current->right);
+    pre_print(current->left);
+    pre_print(current->right);
 }
 
 int main(){
+
     Insert(5);
     Insert(7);
     Insert(6);
     Insert(3);
     Insert(8);
 
-    print_pre(root);
+    pre_print(root);
 
     return Accepted;
 }
