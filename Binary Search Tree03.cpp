@@ -138,6 +138,16 @@ void print(node *current){
 
 }
 
+void delete_node(int data){
+    node *current = root, *parent;
+    while(current->data != data){
+        if(Data <current->data){
+            parent = current;
+            current- = current->left;
+        }
+    }
+}
+
 int main(){
     cout<<"Enter number of elements: ";
     int n; cin>>n;
