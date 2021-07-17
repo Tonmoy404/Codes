@@ -1,4 +1,3 @@
-
 #include <bits/stdc++.h>
 #define     ll              long long
 #define     ull             unsigned long long
@@ -140,12 +139,44 @@ void print(node *current){
 
 void delete_node(int data){
     node *current = root, *parent;
-    while(current->data != data){
-        if(Data <current->data){
+    while(current->val != data){
+        if(data < current->val){
             parent = current;
-            current- = current->left;
+            current = current->left;
+        }
+        else{
+            parent = current;
+            current = current->right;
         }
     }
+
+    if(current->left ==NULL && current->right==NULL){
+        if(data < parent->val){
+            parent->left = NULL;
+        }
+        else parent->right = NULL;
+    }
+
+    else if(current->left != NULL && current->right !=NULL){
+        node *temp_parent = current;
+        node *temp = current->right;
+        while(temp->left != NULL){
+            temp_parent = temp;
+            temp = temp->left;
+        }
+        current->val = temp->val;
+        if(temp_parent==current) temp_parent->right = NULL;
+        else temp_parent->left = NULL;
+    }
+
+    else{
+        if(current->left == NULL) current = current->right;
+        else if(current->right==NULL) current = current->left;
+
+        if(parent->val > current->val) parent->left = current;
+        else parent->right = current;
+    }
+
 }
 
 int main(){
@@ -156,6 +187,11 @@ int main(){
         int x; cin>>x;
         Insert(x);
     }
+    print(root);
+
+    cout<<"Enter a value to be deleted: ";
+    int q; cin>>q;
+    delete_node(q);
 
     print(root);
     return Accepted;

@@ -97,7 +97,7 @@ void Insert(int data){
         return;
     }
 
-    node *parent = root;
+    node *parent = NULL;
     node *current = root;
 
     while(current != NULL){
@@ -127,25 +127,84 @@ void Insert(int data){
     }
 }
 
-void pre_print(node *current){
+void pre_order(node *current){
     if(current==NULL){
         return;
     }
 
     cout<<current->val<<" ";
-    pre_print(current->left);
-    pre_print(current->right);
+    pre_order(current->left);
+    pre_order(current->right);
+}
+
+void in_order(node *current){
+    if(current==NULL) return;
+
+    in_order(current->left);
+    cout<<current->val<<" ";
+    in_order(current->right);
+}
+
+void post_order(node *current){
+    if(current==NULL) return;
+
+    post_order(current->left);
+    post_order(current->right);
+    cout<<current->val<<" ";
+}
+
+void delete_node(int data){
+    node *current = root, *parent = NULL;
+    while(current->val != data){
+        if(data < current->val){
+            parent = current;
+            current = current->left;
+        }
+        else{
+            parent = current;
+            current = current->right;
+        }
+    }
+
+
+    if(current->left==NULL && current->right==NULL){
+        if(data < parent->val){
+            parent->left = NULL;
+        }
+        else parent->right = NULL;
+    }
+
+    else if(current->left!=NULL && current->right!=NULL){
+        node *temp_parent = current;
+        node *temp = current->right;
+            while(temp->left != NULL){
+            temp_parent = temp;
+            temp = temp->left;
+        }
+        current = temp;
+        temp_parent = NULL;
+    }
 }
 
 int main(){
 
-    Insert(5);
-    Insert(7);
-    Insert(6);
-    Insert(3);
-    Insert(8);
+    cout<<"Enter number of elements: ";
+    int n; cin>>n;
+    cout<<"Enter values: ";
+    while(n--){
+        int x; cin>>x;
+        Insert(x);
+    }
+    cout<<"Printing pre-order: "<<endl;
+    pre_order(root);
+    cout<<endl<<"Printing in-order: "<<endl;
+    in_order(root);
+    cout<<endl<<"Printing post-order: "<<endl;
+    post_order(root);
 
-    pre_print(root);
+//    delete_node(6);
+//    cout<<endl;
+//    pre_order(root);
 
     return Accepted;
 }
