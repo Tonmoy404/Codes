@@ -97,8 +97,8 @@ void Insert(int data){
         return;
     }
 
-    node *parent = NULL;
-    node *current = root;
+
+    node *current = root, *parent;
 
     while(current != NULL){
         if(data < current->val){
@@ -201,10 +201,6 @@ int main(){
     in_order(root);
     cout<<endl<<"Printing post-order: "<<endl;
     post_order(root);
-
-//    delete_node(6);
-//    cout<<endl;
-//    pre_order(root);
 
     return Accepted;
 }

@@ -96,8 +96,8 @@ void Insert(int data){
         return;
     }
 
-    node *parent = root;
-    node *current = root;
+    ;
+    node *current = root, *parent;
 
     while(current!=NULL){
         if(data < current->val){
