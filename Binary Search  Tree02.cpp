@@ -88,7 +88,7 @@ struct node{
 
 node *root = NULL;
 
-void Insert(int data){
+void Insertion(int data){
     if(root==NULL){
         root = new node();
         root->val = data;
@@ -127,29 +127,29 @@ void Insert(int data){
     }
 }
 
-void pre_order(node *current){
+void pre_traversal(node *current){
     if(current==NULL){
         return;
     }
 
     cout<<current->val<<" ";
-    pre_order(current->left);
-    pre_order(current->right);
+    pre_traversal(current->left);
+    pre_traversal(current->right);
 }
 
-void in_order(node *current){
+void in_traversal(node *current){
     if(current==NULL) return;
 
-    in_order(current->left);
+    in_traversal(current->left);
     cout<<current->val<<" ";
-    in_order(current->right);
+    in_traversal(current->right);
 }
 
-void post_order(node *current){
+void post_traversal(node *current){
     if(current==NULL) return;
 
-    post_order(current->left);
-    post_order(current->right);
+    post_traversal(current->left);
+    post_traversal(current->right);
     cout<<current->val<<" ";
 }
 
@@ -184,6 +184,13 @@ void delete_node(int data){
         current = temp;
         temp_parent = NULL;
     }
+    else{
+        if(current->left == NULL) current = current->right;
+        else if(current->right==NULL) current = current->left;
+
+        if(parent->val > current->val) parent->left = current;
+        else parent->right = current;
+    }
 }
 
 int main(){
@@ -193,14 +200,26 @@ int main(){
     cout<<"Enter values: ";
     while(n--){
         int x; cin>>x;
-        Insert(x);
+        Insertion(x);
     }
-    cout<<"Printing pre-order: "<<endl;
-    pre_order(root);
-    cout<<endl<<"Printing in-order: "<<endl;
-    in_order(root);
-    cout<<endl<<"Printing post-order: "<<endl;
-    post_order(root);
+    cout<<"Printing pre-traversal: "<<endl;
+    pre_traversal(root);
+    cout<<endl<<"Printing in-traversal: "<<endl;
+    in_traversal(root);
+    cout<<endl<<"Printing post-traversal: "<<endl;
+    post_traversal(root);
 
-    return Accepted;
+    cout<<endl<<"Enter a value to be deleted: ";
+    int q; cin>>q;
+    delete_node(q);
+
+    cout<<endl<<"Printing pre-traversal: "<<endl;
+    pre_traversal(root);
+    cout<<endl<<"Printing in-traversal: "<<endl;
+    in_traversal(root);
+    cout<<endl<<"Printing post-traversal: "<<endl;
+    post_traversal(root);
+
+
+    return 0;
 }

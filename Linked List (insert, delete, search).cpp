@@ -106,7 +106,7 @@ void push(int data){
 }
 
 void print(){
-     node *current = root;
+    node *current = root;
     while(current->next != NULL){
         cout<<current->val<<endl;
         current = current->next;

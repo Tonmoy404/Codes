@@ -96,7 +96,7 @@ void Insert(int data){
         return;
     }
 
-    ;
+
     node *current = root, *parent;
 
     while(current!=NULL){
@@ -110,31 +110,43 @@ void Insert(int data){
         }
     }
 
-    if(data < parent->val){
         node *newNode = new node();
         newNode->val = data;
         newNode->left = NULL;
         newNode->right = NULL;
-        parent->left = newNode;
-    }
+        if(data < parent->val){
+             parent->left = newNode;
+        }
+
     else{
-        node *newNode = new node();
-        newNode->val = data;
-        newNode->left = NULL;
-        newNode->right = NULL;
         parent->right = newNode;
     }
 }
 
-void print(node *current){
+void pre_order(node *current){
     if(current==NULL){
         return;
     }
 
     cout<<current->val<<" ";
-    print(current->left);
-    print(current->right);
+    pre_order(current->left);
+    pre_order(current->right);
+}
 
+void in_order(node *current){
+    if(current==NULL) return;
+
+    in_order(current->left);
+    cout<<current->val<<" ";
+    in_order(current->right);
+}
+
+void post_order(node *current){
+    if(current==NULL) return;
+
+    post_order(current->left);
+    post_order(current->right);
+    cout<<current->val<<" ";
 }
 
 void delete_node(int data){
@@ -187,12 +199,24 @@ int main(){
         int x; cin>>x;
         Insert(x);
     }
-    print(root);
 
-    cout<<"Enter a value to be deleted: ";
+
+    cout<<"Printing pre-order: "<<endl;
+    pre_order(root);
+    cout<<endl<<"Printing in-order: "<<endl;
+    in_order(root);
+    cout<<endl<<"Printing post-order: "<<endl;
+    post_order(root);
+
+    cout<<endl<<"Enter a value to be deleted: ";
     int q; cin>>q;
     delete_node(q);
 
-    print(root);
+    cout<<endl<<"Printing pre-order: "<<endl;
+    pre_order(root);
+    cout<<endl<<"Printing in-order: "<<endl;
+    in_order(root);
+    cout<<endl<<"Printing post-order: "<<endl;
+    post_order(root);
     return Accepted;
 }
