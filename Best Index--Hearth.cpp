@@ -80,34 +80,56 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[100000+7];
+int main(){
+    vector<int>v;
+    vector<int>sum;
+    vector<int>result;
 
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
+    int n; cin>>n;
+    for(int i=0; i<n; i++){
+        int x; cin>>x;
+        v.pb(x);
+    }
+    sum.pb(v[0]);
+    for(int i=1; i<n; i++){
+         sum.pb(sum[i-1] + v[i]);
     }
 
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
+    int idx = 0;
+    while(n--){
+        int sizee = v.size() - idx;
+        int sq = sqrt(sizee);
+        int sum_idx = ((sq+1)*((sq+1)+1))/2;
+        //cout<<sum_idx;
+        if(sum_idx==sizee){
+            if(idx==0){
+                result.pb(sum[sum_idx]-1);
+                cout<<sum[sum_idx-1];
+                ++idx;
+            }
+            else{
+                int xD = idx-1;
+                result.pb((sum[sum_idx-1])-sum[xD]);
+                ++idx;
+            }
+        }
+        else{
+            sum_idx = (sq*(sq+1))/2;
+            if(idx==0){
+                result.pb(sum[sum_idx-1]);
+                ++idx;
+            }
+            else{
+                int xD = idx - 1;
+                result.pb((sum[sum_idx-1])- sum[xD]);
+                cout<<sum[sum_idx-1]- sum[xD];
+                ++idx;
             }
         }
     }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
-}
+    sort(result.begin(), result.end());
 
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-
-
+    cout<<result.front()<<endl;
     return Accepted;
 }
+

@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define     ll              long long
 #define     ull             unsigned long long
@@ -80,34 +81,20 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[100000+7];
-
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
-    }
-
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
-            }
-        }
-    }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
-}
-
-int main()
-{
+int main(){
+    map<string, string>mp;
     int n; cin>>n;
-    Sieve(n);
-
-
+    while(n--){
+        string a, b; cin>>a>>b;
+        if(!mp.count(a)){
+            mp[a] = a;
+        }
+        mp[b] = mp[a];
+        mp.erase(a);
+    }
+    cout<<mp.size()<<endl;
+    for(auto ok: mp){
+        cout<<ok.first<<" "<<ok.second<<endl;
+    }
     return Accepted;
 }

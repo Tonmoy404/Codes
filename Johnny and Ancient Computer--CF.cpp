@@ -80,34 +80,54 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[100000+7];
+int main(){
+    int t; cin>>t;
+    while(t--){
+        ll a, b, cnt=0; cin>>a>>b;
+        if(a==b){
+            cout<<"0"<<endl;
+            continue;
+        }
 
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
-    }
+        if(a>b){
+            while(a>b){
 
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
+                if(a%8==0 && a/8 >= b){
+                a/=8;
+                cnt++;
+                }
+                else if(a%4==0 && a/4>=b){
+                    a/=4;
+                    cnt++;
+                }
+                else if(a%2==0 && a/2>=b){
+                    a/=2;
+                    cnt++;
+                }
+                else break;
             }
         }
-    }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
+
+        else{
+            while(a<b){
+
+                if(a*8 <= b){
+                    a*=8;
+                    cnt++;
+                }
+                else if(a*4<=b){
+                    a*=4;
+                    cnt++;
+                }
+                else if(a*2 <=b){
+                    a*=2;
+                    ++cnt;
+                }
+                else break;
+            }
         }
+       if(a==b) cout<<cnt<<endl;
+       else cout<<"-1"<<endl;
     }
-}
-
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-
-
     return Accepted;
 }

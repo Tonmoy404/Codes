@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define     ll              long long
 #define     ull             unsigned long long
@@ -80,34 +81,13 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[100000+7];
-
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
-    }
-
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
-            }
-        }
-    }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
+void tonmoy(){
+    string x, y; cin>>x>>y;
+    if(x==y) cout<<x<<endl;
+    else cout<<"1"<<endl;
 }
 
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-
-
+int main(){
+    tonmoy();
     return Accepted;
 }

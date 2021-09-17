@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define     ll              long long
 #define     ull             unsigned long long
@@ -80,34 +81,28 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[100000+7];
-
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
-    }
-
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
-            }
-        }
-    }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
-}
-
-int main()
-{
+int main(){
     int n; cin>>n;
-    Sieve(n);
+    string s; cin>>s;
+    string s1="", s2="";
+    int cnt1=0, cnt2=0;
+    for(int i=0; i<s.size()/2; i++){
+        s1+=s[i];
+    }
+    for(int i=s.size()/2; i<=s.size()-1; i++){
+        s2+=s[i];
+    }
+    sort(s1.begin(), s1.end());
+    sort(s2.begin(), s2.end());
 
+    for(int i=0; i<s2.size(); i++){
+        if(s1[i]<s2[i]) cnt1++;
+        if(s1[i]>s2[i]) cnt2++;
+    }
+    if(cnt1==s1.size() || cnt2==s2.size()){
+        cout<<"YES"<<endl;
+    }
+    else cout<<"NO"<<endl;
 
     return Accepted;
 }
