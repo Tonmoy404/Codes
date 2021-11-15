@@ -127,3 +127,44 @@ int main()
     cout<<"minimum cost is: "<<KRUSKAL()<<endl;
     return Accepted;
 }
+
+/** node, edge: 14 16
+1 7 2
+1 2 9
+2 9 5
+2 11 6
+3 8 2
+3 6 2
+4 9 7
+4 10 7
+5 9 7
+5 10 11
+6 8 10
+7 8 2
+11 13 12
+11 14 1
+13 15 3
+14 15 3
+
+total 89
+min 56
+*/
+
+/**node, edge: 9 14
+1 7 10
+1 2 2
+1 3 3
+1 4 5
+2 4 3
+2 5 4
+3 4 6
+4 5 11
+4 6 5
+5 7 7
+6 7 13
+7 9 12
+7 8 9
+8 9 4
+Normal Cost is 94
+minimum cost is 37
+*/

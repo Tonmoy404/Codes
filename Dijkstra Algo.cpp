@@ -80,88 +80,67 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<iii>graph;
-int par[1000+7];
+const int inf = 1e4;
+vector<ii>graph[1000];
+int dis[1000], parent[1000];
+vector<int>path;
 
-int find_parent(int x){   //checking nodes parent
-    if(par[x]==x) return x;
-    return find_parent(par[x]);
-}
+void dijkstra(int u){
+    dis[u] = 0;
+    parent[u] = -1;
+    queue<int>q;
+    q.push(u);
 
-int KRUSKAL(){
-    int minCost = 0;
-    int sizee = graph.size();  //calculating vectors size
+    while(!q.empty()){
+        int u = q.front();
+        q.pop();
 
-    for(int i=0; i<sizee; i++){
-        int u = graph[i].ss.ff;   //collecting first node
-        int v = graph[i].ss.ss;   //collecting second node
+        for(int i=0; i<graph[u].size(); i++){
+            int v = graph[u][i].ff;
+            int w = graph[u][i].ss;
 
-        int u_parent = find_parent(u);   //checking parent
-        int v_parent = find_parent(v);   //checking parent
-
-        if(v_parent != u_parent){
-            minCost += graph[i].ff;    //calculating minimum cost
-           par[v_parent] = par[u_parent];    //making U(previous parent) as V's(current) parent
+            if(dis[u]+w < dis[v]){
+                dis[v] = dis[u]+ w;
+                parent[v] = u;
+                q.push(v);
+            }
         }
     }
-    return minCost;    //returning minimum cost
 }
 
-int main()
-{
-    int node, edge; cin>>node>> edge;  //taking number of nodes & edges as input..
-    int normalCost = 0;
-    for(int i=0; i<edge; i++){
-        int u, v, w; cin>>u>>v>>w;
-        normalCost+=w;
-        graph.pb(iii(w,ii(u,v)));  //pushing weights and two nodes..weight value should be pushed first bcoz of sorting
-    }
-    sort(graph.begin(), graph.end());
-    for(int i=1; i<=node; i++) par[i] = i;   //making nodes as parent of themselves
+void Path(int v){
+    int u = parent[v];
+    path.pb(v);
 
-    cout<<"Normal cost is: "<<normalCost<<endl;
-    cout<<"Minimum cost is: "<<KRUSKAL()<<endl;
+    if(u==-1) return;
+    Path(u);
+}
+
+int main(){
+    for(int i=0; i<1000; i++){
+        dis[i] = inf;
+    }
+
+    int node, edge;
+    cin>>node>>edge;
+
+    for(int i=0; i<edge; i++){
+        int u, v, w;
+        cin>>u>>v>>w;
+        graph[u].pb(ii(v,w));
+        graph[v].pb(ii(u,w));
+    }
+    dijkstra(1);
+    cout<<"Enter Destination node: ";
+    int dest; cin>>dest;
+    cout<<dis[dest]<<endl;
+
+    Path(dest);
+
+    sort(path.begin(), path.end());
+    for(auto x: path){
+        cout<<x<<" ";
+    }
 
     return Accepted;
 }
-
-/** node, edge: 14 16
-1 7 2
-1 2 9
-2 9 5
-2 11 6
-3 8 2
-3 6 2
-4 9 7
-4 10 7
-5 9 7
-5 10 11
-6 8 10
-7 8 2
-11 13 12
-11 14 1
-13 15 3
-14 15 3
-
-total 89
-min 56
-*/
-
-/**node, edge: 9 14
-1 7 10
-1 2 2
-1 3 3
-1 4 5
-2 4 3
-2 5 4
-3 4 6
-4 5 11
-4 6 5
-5 7 7
-6 7 13
-7 9 12
-7 8 9
-8 9 4
-Normal Cost is 94
-minimum cost is 37
-*/
