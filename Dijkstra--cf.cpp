@@ -14,6 +14,7 @@
 #define     ss              second
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
+#define     ii_minQueue     priority_queue <ii,vector<ii>,greater<ii> >
 #define     pb              push_back
 #define     max3(a,b,c)     max(a, max(b,c))
 #define     min3(a,b,c)     min(a, min(b,c))
@@ -80,19 +81,22 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-const int inf = 1e4;
-vector<ii>graph[1000];
-int dis[1000], parent[1000];
-vector<int>path;
 
-void dijkstra(int u){
-    dis[u] = 0;
-    parent[u] = -1;
-    queue<int>q;
-    q.push(u);
+ll inf = 100000000007;
+vector <ii> graph[100000+7];
+ll dis[100000+7];
+int par[100000+7];
+vector <int> v;
 
-    while(!q.empty()){
-        int u = q.front();
+void call(ll u){
+     dis[u] = 0;
+
+
+     priority_queue <ii> q;
+     q.push(ii(0, u));
+
+     while(!q.empty()){
+        int u = q.top().ss;
         q.pop();
 
         for(int i=0; i<graph[u].size(); i++){
@@ -100,25 +104,25 @@ void dijkstra(int u){
             int w = graph[u][i].ss;
 
             if(dis[u]+w < dis[v]){
-                dis[v] = dis[u]+ w;
-                parent[v] = u;
-                q.push(v);
+                dis[v] = dis[u] + w;
+                par[v] = u;
+                q.push(ii(-w, v));
             }
         }
-    }
+     }
 }
 
-void Path(int v){
-    int u = parent[v];
-    path.pb(v);
-
+void path(ll x){
+    ll u = par[x];
+    v.pb(x);
     if(u==-1) return;
-    Path(u);
+    path(u);
 }
 
 int main(){
-    for(int i=0; i<1000; i++){
+    for(int i=0; i<100007; i++){
         dis[i] = inf;
+        par[i] = -1;
     }
 
     int node, edge;
@@ -130,17 +134,17 @@ int main(){
         graph[u].pb(ii(v,w));
         graph[v].pb(ii(u,w));
     }
-    dijkstra(1);
-    cout<<"Enter Destination node: ";
-    int dest; cin>>dest;
-    cout<<dis[dest]<<endl;
+//    par[1] = par[node] = -1;
+    call(1);
 
-    Path(dest);
+    path(node);
 
-    reverse(path.begin(), path.end());
-    for(auto x: path){
-        cout<<x<<" ";
+    reverse(v.begin(), v.end());
+    if(v.size()==1) cout<<"-1"<<endl;
+    else{
+        for(int i=0; i<v.size(); i++){
+            cout<<v[i]<<" ";
+        }
     }
-
     return Accepted;
 }

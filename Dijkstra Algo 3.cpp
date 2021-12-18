@@ -81,13 +81,14 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 const int inf = 1e4;
-vector<ii>graph[1000];
-int dis[1000], parent[1000];
-vector<int>path;
+vector<ii>graph[1000+7];
+int dis[1000+7], par[1000+7];
+vector<int>xD;
 
-void dijkstra(int u){
+int dijkstra(int u){
     dis[u] = 0;
-    parent[u] = -1;
+    par[u] = -1;
+
     queue<int>q;
     q.push(u);
 
@@ -100,21 +101,21 @@ void dijkstra(int u){
             int w = graph[u][i].ss;
 
             if(dis[u]+w < dis[v]){
-                dis[v] = dis[u]+ w;
-                parent[v] = u;
+                dis[v] = dis[u]+w;
+                par[v] = u;
                 q.push(v);
             }
         }
     }
 }
 
-void Path(int v){
-    int u = parent[v];
-    path.pb(v);
-
+void path(int v){
+    int u = par[v];
+    xD.pb(v);
     if(u==-1) return;
-    Path(u);
+    path(u);
 }
+
 
 int main(){
     for(int i=0; i<1000; i++){
@@ -130,17 +131,19 @@ int main(){
         graph[u].pb(ii(v,w));
         graph[v].pb(ii(u,w));
     }
+
     dijkstra(1);
-    cout<<"Enter Destination node: ";
+    cout<<"Enter destination node: ";
     int dest; cin>>dest;
-    cout<<dis[dest]<<endl;
+    cout<<"minimum cost is: "<<dis[dest]<<endl<<endl;
 
-    Path(dest);
+    path(dest);
 
-    reverse(path.begin(), path.end());
-    for(auto x: path){
+    cout<<"printing the shortest path: "<<endl;
+    reverse(xD.begin(), xD.end());
+
+    for(auto x: xD){
         cout<<x<<" ";
     }
-
     return Accepted;
 }

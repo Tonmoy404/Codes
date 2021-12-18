@@ -80,67 +80,65 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-const int inf = 1e4;
-vector<ii>graph[1000];
-int dis[1000], parent[1000];
-vector<int>path;
+int main(){
+    int t;
+    cin>>t;
 
-void dijkstra(int u){
-    dis[u] = 0;
-    parent[u] = -1;
-    queue<int>q;
-    q.push(u);
+    while(t--){
+        string x, y;
+        cin>>x>>y;
 
-    while(!q.empty()){
-        int u = q.front();
-        q.pop();
+        bool flag1=false, flag2=false, flag3=false;
 
-        for(int i=0; i<graph[u].size(); i++){
-            int v = graph[u][i].ff;
-            int w = graph[u][i].ss;
+        sort(x.begin(), x.end());
 
-            if(dis[u]+w < dis[v]){
-                dis[v] = dis[u]+ w;
-                parent[v] = u;
-                q.push(v);
+        int idx1=INT_MAX, idx2=INT_MAX;
+
+        for(int i=0; i<x.size(); i++){
+            if(x[i]=='a') flag1 = true;
+            else if(x[i]=='b') flag2 = true, idx1=min(idx1, i);
+            else if(x[i]=='c') flag3 = true, idx2=min(idx2, i);
+        }
+
+        string t=" ";
+        if(flag1==true && flag2==true && flag3==true){
+            if(y=="abc"){
+                for(int i=0; i<x.size(); i++){
+                    if(x[i]=='c') t+=x[i];
+                    else if(x[i]!='c') x+=x[i];
+                }
+
+                cout<<x<<" "<<t<<endl;
+                int xD=0;
+                for(int i=0; i<x.size(); i++){
+                    if(x[i]=='b'){
+                        xD=i;
+                        break;
+                    }
+                    cout<<x[i];
+                }
+                cout<<t;
+
+                for(int i=xD; i<x.size(); i++){
+                    cout<<x[i];
+                }
+                cout<<endl;
+
+            }
+            else{
+                cout<<x<<endl;
             }
         }
-    }
-}
-
-void Path(int v){
-    int u = parent[v];
-    path.pb(v);
-
-    if(u==-1) return;
-    Path(u);
-}
-
-int main(){
-    for(int i=0; i<1000; i++){
-        dis[i] = inf;
+        else{
+            cout<<x<<endl;
+        }
     }
 
-    int node, edge;
-    cin>>node>>edge;
 
-    for(int i=0; i<edge; i++){
-        int u, v, w;
-        cin>>u>>v>>w;
-        graph[u].pb(ii(v,w));
-        graph[v].pb(ii(u,w));
-    }
-    dijkstra(1);
-    cout<<"Enter Destination node: ";
-    int dest; cin>>dest;
-    cout<<dis[dest]<<endl;
 
-    Path(dest);
 
-    reverse(path.begin(), path.end());
-    for(auto x: path){
-        cout<<x<<" ";
-    }
+
+
 
     return Accepted;
 }

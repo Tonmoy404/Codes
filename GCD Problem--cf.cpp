@@ -80,67 +80,43 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-const int inf = 1e4;
-vector<ii>graph[1000];
-int dis[1000], parent[1000];
-vector<int>path;
+vector<ll>v;
+bool mark[1000000007];
 
-void dijkstra(int u){
-    dis[u] = 0;
-    parent[u] = -1;
-    queue<int>q;
-    q.push(u);
+void Sieve(ll x){
+    mark[1] = true;
+    for(ll i=4; i<=x; i+=2){
+        mark[i] = true;
+    }
 
-    while(!q.empty()){
-        int u = q.front();
-        q.pop();
-
-        for(int i=0; i<graph[u].size(); i++){
-            int v = graph[u][i].ff;
-            int w = graph[u][i].ss;
-
-            if(dis[u]+w < dis[v]){
-                dis[v] = dis[u]+ w;
-                parent[v] = u;
-                q.push(v);
+    for(ll i=3; i<=sqrt(x); i+=2){
+        if(mark[i]!=true){
+            for(ll j= i*i; j<=x; j+=i){
+                mark[j] = true;
             }
+        }
+    }
+    for(ll i=1; i<=x; i++){
+        if(mark[i]!=true){
+            v.push_back(i);
         }
     }
 }
 
-void Path(int v){
-    int u = parent[v];
-    path.pb(v);
+int main()
+{
+    int t; cin>>t;
 
-    if(u==-1) return;
-    Path(u);
-}
+    while(t--){
+        ll n; cin>>n;
+        Sieve(n);
 
-int main(){
-    for(int i=0; i<1000; i++){
-        dis[i] = inf;
-    }
+        ll xD = v[v.size()-3];
+        ll xD1 = n-xD;
 
-    int node, edge;
-    cin>>node>>edge;
-
-    for(int i=0; i<edge; i++){
-        int u, v, w;
-        cin>>u>>v>>w;
-        graph[u].pb(ii(v,w));
-        graph[v].pb(ii(u,w));
-    }
-    dijkstra(1);
-    cout<<"Enter Destination node: ";
-    int dest; cin>>dest;
-    cout<<dis[dest]<<endl;
-
-    Path(dest);
-
-    reverse(path.begin(), path.end());
-    for(auto x: path){
-        cout<<x<<" ";
+        cout<<xD<<" "<<xD1-1<<" "<<"1"<<endl;
     }
 
     return Accepted;
 }
+

@@ -80,14 +80,13 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-const int inf = 1e4;
-vector<ii>graph[1000];
-int dis[1000], parent[1000];
-vector<int>path;
+vector<ii>graph[1000000];
+int dis[1000000];
+vector<int>ans[1000000];
 
-void dijkstra(int u){
+void call(int u){
     dis[u] = 0;
-    parent[u] = -1;
+
     queue<int>q;
     q.push(u);
 
@@ -99,48 +98,37 @@ void dijkstra(int u){
             int v = graph[u][i].ff;
             int w = graph[u][i].ss;
 
-            if(dis[u]+w < dis[v]){
-                dis[v] = dis[u]+ w;
-                parent[v] = u;
+            if(w>dis[u]){
+                dis[v] = w;
                 q.push(v);
+                ans[v].pb(w);
             }
         }
     }
 }
 
-void Path(int v){
-    int u = parent[v];
-    path.pb(v);
-
-    if(u==-1) return;
-    Path(u);
-}
-
 int main(){
-    for(int i=0; i<1000; i++){
-        dis[i] = inf;
+
+    memset(dis, -1, sizeof(dis));
+
+    int t;
+    cin>>t;
+
+
+    while(t--){
+        int node, edge;
+        cin>>node>>edge;
+
+        for(int i=0; i<edge; i++){
+            int u, v, w;
+            cin>>u>>v>>w;
+            graph[u].pb(ii(v,w));
+            graph[v].pb(ii(u,w));
+        }
+
+        call(1);
+
+
     }
 
-    int node, edge;
-    cin>>node>>edge;
-
-    for(int i=0; i<edge; i++){
-        int u, v, w;
-        cin>>u>>v>>w;
-        graph[u].pb(ii(v,w));
-        graph[v].pb(ii(u,w));
-    }
-    dijkstra(1);
-    cout<<"Enter Destination node: ";
-    int dest; cin>>dest;
-    cout<<dis[dest]<<endl;
-
-    Path(dest);
-
-    reverse(path.begin(), path.end());
-    for(auto x: path){
-        cout<<x<<" ";
-    }
-
-    return Accepted;
 }

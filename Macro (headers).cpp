@@ -79,3 +79,5 @@ inline unsigned long long getunsignedlonglong(){
 #define ULL getunsignedlonglong()
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
+
+

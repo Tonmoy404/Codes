@@ -80,67 +80,34 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-const int inf = 1e4;
-vector<ii>graph[1000];
-int dis[1000], parent[1000];
-vector<int>path;
+const int maxn = 8;
 
-void dijkstra(int u){
-    dis[u] = 0;
-    parent[u] = -1;
-    queue<int>q;
-    q.push(u);
+int arr[maxn];
+int dp[10+5][10+5];
 
-    while(!q.empty()){
-        int u = q.front();
-        q.pop();
+int call(int i, int j){
+    if(i==maxn || j==maxn) return 1;
 
-        for(int i=0; i<graph[u].size(); i++){
-            int v = graph[u][i].ff;
-            int w = graph[u][i].ss;
+    if(dp[i][j]!=-1) return dp[i][j];
 
-            if(dis[u]+w < dis[v]){
-                dis[v] = dis[u]+ w;
-                parent[v] = u;
-                q.push(v);
-            }
-        }
+    int r1 = 0;
+    if(arr[i]<arr[j]){
+        int r1 = 1+call(j, j+1);
     }
-}
+    int r2 = 0 + call(i, j+1);
 
-void Path(int v){
-    int u = parent[v];
-    path.pb(v);
+    dp[i][j] = max(r1, r2);
 
-    if(u==-1) return;
-    Path(u);
 }
 
 int main(){
-    for(int i=0; i<1000; i++){
-        dis[i] = inf;
+
+    cout<<"Enter the elements: "<<endl;
+    for(int i=0; i<maxn; i++){
+        cin>>arr[i];
     }
 
-    int node, edge;
-    cin>>node>>edge;
+    call(0,1);
 
-    for(int i=0; i<edge; i++){
-        int u, v, w;
-        cin>>u>>v>>w;
-        graph[u].pb(ii(v,w));
-        graph[v].pb(ii(u,w));
-    }
-    dijkstra(1);
-    cout<<"Enter Destination node: ";
-    int dest; cin>>dest;
-    cout<<dis[dest]<<endl;
 
-    Path(dest);
-
-    reverse(path.begin(), path.end());
-    for(auto x: path){
-        cout<<x<<" ";
-    }
-
-    return Accepted;
 }
