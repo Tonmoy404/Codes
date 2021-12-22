@@ -7,7 +7,7 @@ int n;
 int call(int i, int w){
     if(i>=n) return 0;
 
-    int ans1, ans2;
+    int ans1=0, ans2=0;
 
     if(weight[i]<=w) ans1 = value[i]+call(i+1, w-weight[i]);
     else ans2 = call(i+1, w);
