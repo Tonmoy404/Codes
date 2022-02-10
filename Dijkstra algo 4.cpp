@@ -12,6 +12,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,40 +82,61 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[10000000+7];
+vector<ii>graph[10000+7];
+int dis[10000];
+const int inf = MAX;
 
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
-    }
+void call(int u){
+    dis[u] = 0;
 
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
+    queue<int>q;
+    q.push(u);
+
+    while(!q.empty()){
+        int u = q.front();
+        q.pop();
+
+        for(int i=0; i<graph[u].size(); i++){
+            int v = graph[u][i].ff;
+            int w = graph[u][i].ss;
+
+            if(dis[u]+w < dis[v]){
+                dis[v] = dis[u] + w;
+                q.push(v);
             }
         }
     }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
 }
 
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-    cout<<"Enter number: ";
-    int hi;
-    cin>>hi;
 
-    for(auto x: v){
-        cout<<x<<endl;
+int main(){
+    for(int i=0; i<10000; i++){
+        dis[i] = inf;
     }
 
-    return Accepted;
+    int node, edge;
+    cin>>node>>edge;
+
+    for(int i=0; i<edge; i++){
+        int u, v, w;
+        cin>>u>>v>>w;
+
+        graph[u].pb(ii(v,w));
+        graph[v].pb(ii(u,w));
+    }
+    cout<<"Enter source: ";
+    int sr; cin>>sr;
+
+    call(sr);
+    cout<<"Enter destination: ";
+    int dest; cin>>dest;
+
+    cout<<dis[dest];
+
+
+
 }
+
+
+
+

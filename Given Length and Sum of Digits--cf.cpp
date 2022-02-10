@@ -12,6 +12,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,40 +82,75 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[10000000+7];
+int main(){
+    int m, sum;
+    cin>>m>>sum;
 
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
+//    int xd = 0, ans = sum, cnt=0;
+    if(sum==0){
+        cout<<"-1"<<" "<<"-1"<<endl;
+        return 0;
     }
 
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
+    if(sum==1){
+        cout<<"1";
+        for(int i=0; i<m-1; i++){
+            cout<<"0";
+        }
+        cout<<" "<<"1";
+        for(int i=0; i<m-1; i++){
+            cout<<"0";
+        }
+        cout<<endl;
+        return 0;
+    }
+
+
+//    while(ans>0){
+//        xd = ans%10;
+//        ans/=10;
+//        cnt++;
+//    }
+
+//    if(cnt==1){
+//        cout<<ans<<"0"<<" "<<ans<<"0"<<endl;
+//        return 0;
+//    }
+
+    else{
+        int ans = sum/9;
+        int ans2 = sum-(9*ans);
+
+        if(sum>m*9){
+            cout<<"-1"<<" "<<"-1"<<endl;
+            return 0;
+        }
+
+        else if(ans2>0){
+            cout<<ans2;
+        for(int i=0; i<ans; i++){
+            cout<<"9";
+        }
+        cout<<" ";
+
+        for(int i=0; i<ans; i++){
+            cout<<"9";
+        }
+        cout<<ans2<<endl;
+
+        }
+        else{
+            for(int i=0; i<ans; i++){
+                cout<<"9";
+            }
+            cout<<" ";
+
+            for(int i=0; i<ans; i++){
+                cout<<"9";
             }
         }
     }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
+    return 0;
 }
 
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-    cout<<"Enter number: ";
-    int hi;
-    cin>>hi;
 
-    for(auto x: v){
-        cout<<x<<endl;
-    }
-
-    return Accepted;
-}

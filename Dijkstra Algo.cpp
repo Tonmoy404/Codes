@@ -142,5 +142,5 @@ int main(){
         cout<<x<<" ";
     }
 
-    return Accepted;
+    return 0;
 }

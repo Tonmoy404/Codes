@@ -11,10 +11,14 @@ int main(){
         }
     }
 
-    cout<<st.size()<<endl;
-
+    cout<<"Total  number of divisor: "<<st.size()<<endl;
+    cout<<"Divisors are showing below: "<<endl;
+    int sum=0;
     for(auto x: st){
+        sum+=x;
         cout<<x<<" ";
     }
+
+    cout<<endl<<"sum of divisors is: "<<sum<<endl;
 
 }

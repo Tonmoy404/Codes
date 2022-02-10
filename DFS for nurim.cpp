@@ -12,6 +12,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,40 +82,78 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[10000000+7];
+vector<int>graph[1000];
+int in[1000], out[1000];
+int tme = 1;
 
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
+void dfs(int par){
+    if(in[par]==0){
+        in[par] = tme;
+        ++tme;
     }
 
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
-            }
+    for(int i=0; i<graph[par].size(); i++){
+        int v = graph[par][i];
+
+        if(in[v]==0){
+            dfs(v);
         }
     }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
+
+    out[par] = tme;
+    ++tme;
 }
 
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-    cout<<"Enter number: ";
-    int hi;
-    cin>>hi;
+int main(){
 
-    for(auto x: v){
-        cout<<x<<endl;
+    int node, edge;
+    cin>>node>>edge;
+
+    for(int i=0 ;i<edge; i++){
+        int u, v;
+        cin>>u>>v;
+
+        graph[u].push_back(v);
+    }
+
+    memset(in, 0, sizeof(in));
+    memset(out, 0, sizeof(out));
+
+    cout<<"Enter source: ";
+    int sr; cin>>sr;
+    dfs(sr);
+
+    for(int i=1; i<=node; i++){
+        cout<<"in time of "<<i<<" node is "<<in[i]<<endl;
+        cout<<"out time of "<<i<<" node is "<<out[i]<<endl;
+
     }
 
     return Accepted;
 }
+
+/** node , edge = 8 7
+
+1 2
+2 4
+2 5
+4 7
+1 3
+3 6
+6 8
+*/
+
+/**
+In time of 1 node is 1 & out time 16
+In time of 2 node is 2 & out time 9
+In time of 3 node is 10 & out time 15
+In time of 4 node is 3 & out time 6
+In time of 5 node is 7 & out time 8
+In time of 6 node is 11 & out time 14
+In time of 7 node is 4 & out time 5
+In time of 8 node is 12 & out time 13
+
+*/
+
+
+

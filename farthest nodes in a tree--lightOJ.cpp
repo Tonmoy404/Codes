@@ -12,6 +12,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,40 +82,91 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[10000000+7];
+vector<ii>graph[100000+7];
+int dis[100000+7];
 
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
+const int neg = INT_MIN;
+int in[100000], out[100000];
+int tme = 1;
+
+void dfs(int node){
+    if(in[node]==0){
+        in[node] = tme;
+        ++tme;
     }
 
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
+    for(int i=0; i<graph[node].size(); i++){
+        int u = graph[node][i].ff;
+        int w = graph[node][i].ss;
+
+        if(in[u]==0){
+            dis[u] = w + dis[node];
+            dfs(u);
+        }
+    }
+
+    out[node] = tme;
+    ++tme;
+}
+
+
+int main(){
+
+    int n;
+    cin>>n;
+
+    for(int i=1; i<=n; i++){
+        int node;
+        cin>>node;
+
+        for(int i=0; i<node-1; i++){
+            int u, v, w;
+            cin>>u>>v>>w;
+            graph[u].pb(ii(v,w));
+            graph[v].pb(ii(u,w));
+        }
+
+        memset(in, 0, sizeof(in));
+        mem(dis, 0);
+        dfs(0);
+//
+//        for(int i=0; i<node; i++){
+//            cout<<"Intime of node "<<i<<" is "<<in[i]<<endl;
+//            cout<<"Outtime of node "<<i<<" is "<<out[i]<<endl;
+//        }
+
+        int ans = INT_MIN, idx=0;
+        for(int i=0; i<node; i++){
+            if(ans<dis[i]){
+                ans = dis[i];
+                idx = i;
             }
         }
-    }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
+
+        memset(dis, 0, sizeof(dis));
+        memset(in, 0, sizeof(in));
+        memset(out, 0, sizeof(out));
+
+        dfs(idx);
+
+        int ans2= INT_MIN, idxx=0;
+        for(int i=0; i<node; i++){
+            if(ans2<dis[i]){
+                ans2 = dis[i];
+                idxx = i;
+            }
         }
-    }
-}
 
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-    cout<<"Enter number: ";
-    int hi;
-    cin>>hi;
+        cout<<"Case "<<i<<": "<<ans2<<endl;
 
-    for(auto x: v){
-        cout<<x<<endl;
+        for(int i=0; i<100000; i++){
+            graph[i].clear();
+        }
+
     }
 
-    return Accepted;
+
+    return 0;
 }
+
+

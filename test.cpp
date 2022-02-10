@@ -1,17 +1,24 @@
-#include <stdio.h>
+#include<bits/stdc++.h>
+#define pb push_back
+using namespace std;
+
 int main(){
-    printf("Enter 3 integers: ");
-    int x, y, z;
-    scanf("%d %d %d", &x, &y, &z);
+    vector<int>v;
 
-    int product = x*y*z;
-    int greatest = x>y&&x>z?x: y>z?y :z;
-
-    for(int i=greatest; i<=product; i+=greatest){
-        if(i%x==0 && i%y==0 && i%z==0){
-            printf("LCM is: %d\n", i);
-            return 0;
+    int n; cin>>n;
+    while(n--){
+        int x; cin>>x;
+        for(int i=0; i<x; i++){
+            int a; cin>>a;
+            v.pb(a);
         }
+
     }
+
+
+
+
+
+
     return 0;
 }

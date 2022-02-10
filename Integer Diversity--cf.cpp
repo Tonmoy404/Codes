@@ -12,6 +12,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,40 +82,41 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>v;
-bool mark[10000000+7];
 
-void Sieve(int x){
-    mark[1] = true;
-    for(int i=4; i<=x; i+=2){
-        mark[i] = true;
-    }
+int main(){
+    int t;
+    cin>>t;
 
-    for(int i=3; i<=sqrt(x); i+=2){
-        if(mark[i]!=true){
-            for(int j= i*i; j<=x; j+=i){
-                mark[j] = true;
+    while(t--){
+        int n;
+        cin>>n;
+
+        map<int, int>mp;
+        map<int, bool>m;
+        vector<int>v;
+        set<int>st;
+
+        for(int i=0; i<n; i++){
+            int x; cin>>x;
+            v.pb(x), mp[x]++, st.insert(x);
+        }
+
+        int sum=st.size();
+//        cout<<sum<<endl;
+
+        for(auto x: v){
+
+            if(mp[x]>1 && m[x]==false && x!=0 && mp[-x]==0){
+                sum++;
+                m[x] = true;
             }
         }
-    }
-    for(int i=1; i<=x; i++){
-        if(mark[i]!=true){
-            v.push_back(i);
-        }
-    }
-}
 
-int main()
-{
-    int n; cin>>n;
-    Sieve(n);
-    cout<<"Enter number: ";
-    int hi;
-    cin>>hi;
+        cout<<sum<<endl;
 
-    for(auto x: v){
-        cout<<x<<endl;
     }
+
 
     return Accepted;
+
 }
