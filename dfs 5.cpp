@@ -83,4 +83,48 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+vector<int>graph[10000+7];
+int in[1000+7], out[1000+7];
+int tme = 1;
+
+void dfs(int node){
+    if(in[node]==0){
+        in[node] = tme;
+        ++tme;
+    }
+
+    for(int i=0; i<graph[node].size(); i++){
+        int v = graph[node][i];
+        if(in[v]==0){
+            dfs(v);
+        }
+    }
+
+    out[node] = tme;
+    ++tme;
+}
+
+
+
+int main(){
+    int node, edge;
+    cin>>node>>edge;
+
+    for(int i=0; i<edge; i++){
+        int u, v;
+        cin>>u>>v;
+
+        graph[u].pb(v);
+    }
+    mem(in, 0);
+    dfs(1);
+
+    for(int i=1; i<=node; i++){
+        cout<<"IN time of node "<<i<< " -> "<<in[i]<<endl;
+        cout<<"OUT time of node"<<i<<" -> "<<out[i]<<endl;
+    }
+
+    return 0;
+}
+
 
