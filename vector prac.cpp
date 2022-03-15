@@ -8,19 +8,21 @@ int main(){
         int x; cin>>x;
         v.push_back(x);
     }
+//
+//    v.erase(v.begin()+3, v.begin()+4);
 
-    v.erase(v.begin()+3, v.begin()+4);
+
+
+    sort(v.rbegin(), v.rend());
+
+//    for(int i=0; i<v.size(); i++){
+//        cout<<v[i]<<" ";
+//    }
+//    cout<<endl;
 
 
 
-//    sort(v.rbegin(), v.rend());
-
-    for(int i=0; i<v.size(); i++){
-        cout<<v[i]<<" ";
-    }
-    cout<<endl;
-
-    v.insert(v.begin()+1, {10, 20});
+    v.insert(v.begin()+1, 10);
 
      for(int i=0; i<v.size(); i++){
         cout<<v[i]<<" ";
