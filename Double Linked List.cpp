@@ -37,7 +37,7 @@ void forward_print(){
         cout<<current->val<<endl;
         current = current->next;
     }
-    cout<<current->val<<endl;  //printing las nodes value
+    cout<<current->val<<endl;  //printing last nodes value
 }
 
 void reverse_print(){
