@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define     fast ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 #define     ll              long long
 #define     ull             unsigned long long
 #define     db              double
@@ -12,6 +13,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -71,52 +74,7 @@ inline long long getlonglong(){
 }
 #define LL getlonglong()
 
-inline unsigned long long getunsignedlonglong(){#include <bits/stdc++.h>
-using namespace std;
-
-vector<int>graph[1000+7];
-
-int in[1000+7], out[1000+7];
-int tme = 1;
-
-void dfs(int par){
-    if(in[par]==0){
-        in[par] = tme;
-        ++tme;
-    }
-
-    for(int i=0; i<graph[par].size(); i++){
-        int v = graph[par][i];
-
-        if(in[v]==0){
-            dfs(v);
-        }
-    }
-    out[par] = tme;
-    ++tme;
-}
-
-int main()
-{
-    int node, edge;
-    cin>>node>>edge;
-
-    for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;
-        graph[u].push_back(v);
-    }
-    memset(in, 0, sizeof(in));
-    dfs(1);
-
-    for(int i=1; i<=node; i++){
-        cout<<"   "<<" in/out"<<endl;
-        cout<<i<<" -> "<<in[i]<<"/"<<out[i]<<endl;
-        cout<<endl;
-    }
-
-
-    return 0;
-}
+inline unsigned long long getunsignedlonglong(){
     unsigned long long x;
     scanf("%llu", &x);
     return x;
@@ -125,67 +83,73 @@ int main()
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-#include <bits/stdc++.h>
-using namespace std;
 
-vector<int>graph[1000+7];
-int in[10007], out[10007];  //taking array for in & out time
-int tme = 1;         //initially time 1
+vector<ii>graph[1000000+7];
+bool visit[1000000+7];
 
 
-void dfs(int par){  //par is the node *-* sent from main function
-    if(in[par]==0){  //if no intime found then adding intime
-        in[par] = tme;
-        ++tme;
-    }
-    for(int i=0; i<graph[par].size(); i++){  //finding out all connected nodes to 'par'
-        int v = graph[par][i];
-        if(in[v]==0){  //if not visited/no intime then working with that node
-            dfs(v);
+int call(int x, int cost){
+    int ans = 0;
+    visit[x] = 1;
+
+    priority_queue<ii>qq;
+    qq.push(ii(x, cost));
+
+    while(!qq.empty()){
+        ii u = qq.top();
+        int uu = u.ss;
+        qq.pop();
+
+//        while(!qq.empty()){
+//            qq.pop();
+//        }
+
+        for(int i=0; i<graph[uu].size(); i++){
+            int node = graph[uu][i].ss;
+            int cost = graph[uu][i].ff;
+            if(visit[node]==0){
+                visit[node] = 1;
+                qq.push(ii(cost, node));
+            }
         }
+        ii x = qq.top();
+        int last = x.ss;
+        ans+=x.ff;
+        while(!qq.empty()){
+            qq.pop();
+        }
+        qq.push(ii(x.ss, x.ff));
+        cout<<ans<<" "<<last<<endl;
     }
-    out[par]  = tme;  //adding outtime
-    ++tme;
-}
-
-int main()
-{
-    int node, edge; cin>>node>>edge;
-    for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;  //making list
-        graph[u].push_back(v);
-    }
-    memset(in, 0, sizeof(in));
-    dfs(1);
-    for(int i=1; i<=node; i++){
-        cout<<"in time of "<<i<<" = "<<in[i]<<endl;
-        cout<<"out time of "<<i<<" = "<<out[i]<<endl;
-        cout<<endl;
-    }
-
-    return 0;
+    return ans;
 }
 
 
-/** node , edge = 8 7
+int main(){
+    fast
 
-1 2
-2 4
-2 5
-4 7
-1 3
-3 6
-6 8
-*/
+    int t;
+    cin>>t;
+    while(t--){
+        vector<int>unit;
+        int n, m;
+        cin>>n>>m;
 
-/**
-In time of 1 node is 1 & out time 16
-In time of 2 node is 2 & out time 9
-In time of 3 node is 10 & out time 15
-In time of 4 node is 3 & out time 6
-In time of 5 node is 7 & out time 8
-In time of 6 node is 11 & out time 14
-In time of 7 node is 4 & out time 5
-In time of 8 node is 12 & out time 13
+        for(int i=0; i<n; i++){
+            int x; cin>>x;
+            unit.pb(x);
+        }
 
-*/
+        for(int i=0; i<m; i++){
+            int u, v;
+            cin>>u>>v;
+            graph[u].pb(ii(unit[v], v));
+        }
+
+        int result = call(0, unit[0]);
+
+        cout<<result<<endl;
+    }
+
+    return Accepted;
+}

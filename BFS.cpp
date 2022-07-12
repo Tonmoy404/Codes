@@ -92,6 +92,8 @@ void bfs(int node){
     while(!q.empty()){
         int u = q.front();
         q.pop();
+
+        priority_queue<int>qq;
         for(int i=0; i<graph[u].size(); i++){  //finding out all nodes connected to 'u'
             int v = graph[u][i];
             if(vis[v]==false){
