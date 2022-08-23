@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define     fast ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 #define     ll              long long
 #define     ull             unsigned long long
 #define     db              double
@@ -12,6 +13,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,46 +83,39 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>graph[1000+7];
+int main(){
+    fast
 
-int in[1000+7], out[1000+7];
-int tme = 1;
+    int t;
+    cin>>t;
 
-void dfs(int par){
-    if(in[par]==0){
-        in[par] = tme;
-        ++tme;
-    }
+    while(t--){
+        map<int, int>first, last;
 
-    for(int i=0; i<graph[par].size(); i++){
-        int v = graph[par][i];
+        int n, k;
+        cin>>n>>k;
 
-        if(in[v]==0){
-            dfs(v);
+        for(int i=0; i<n; i++){
+            int x; cin>>x;
+            last[x] = i+1;
+            if(first[x]==0){
+                first[x] = i+1;
+            }
+        }
+
+        while(k--){
+            int a, b;
+            cin>>a>>b;
+
+            if(last[b] && first[a] && last[b] > first[a]){
+                    cyes;
+            }
+            else{
+                cno;
+            }
         }
     }
-    out[par] = tme;
-    ++tme;
-}
-
-int main()
-{
-    int node, edge;
-    cin>>node>>edge;
-
-    for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;
-        graph[u].pb(v);
-    }
-    memset(in, 0, sizeof(in));
-    dfs(1);
-
-    for(int i=1; i<=node; i++){
-        cout<<"   "<<" in/out"<<endl;
-        cout<<i<<" -> "<<in[i]<<"/"<<out[i]<<endl;
-        cout<<endl;
-    }
-
 
     return Accepted;
 }
+

@@ -102,13 +102,19 @@ void dfs(int par){
 }
 
 int main(){
-    int node, edge; cin>>node>>edge;
+    int node, edge;
+    cin>>node>>edge;
+
     for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;
+        int u, v;
+        cin>>u>>v;
         graph[u].pb(v);
     }
-    mem(in, 0);
+
+//    mem(in, 0);
+
     dfs(1);
+
     for(int i=1; i<=node; i++){
         cout<<"in time of "<<i<<" is "<<in[i]<<endl;
         cout<<"out time of "<<i<<" is "<<out[i]<<endl;

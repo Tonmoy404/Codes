@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define     fast ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 #define     ll              long long
 #define     ull             unsigned long long
 #define     db              double
@@ -12,6 +13,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,44 +83,27 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>graph[1000+7];
 
-int in[1000+7], out[1000+7];
-int tme = 1;
+int main(){
+    fast
 
-void dfs(int par){
-    if(in[par]==0){
-        in[par] = tme;
-        ++tme;
-    }
+    int t;
+    cin>>t;
 
-    for(int i=0; i<graph[par].size(); i++){
-        int v = graph[par][i];
+    while(t--){
+        string s;
+        cin>>s;
 
-        if(in[v]==0){
-            dfs(v);
-        }
-    }
-    out[par] = tme;
-    ++tme;
-}
+        vector<int>v1, v2;
 
-int main()
-{
-    int node, edge;
-    cin>>node>>edge;
+        int aa = (s[0]-'0') + 10;
+        cout<<s[0]-'0'<<endl;
+        cout<<aa<<endl;
+        cout<<s[1]<<endl;
+        cout<<s[1]-'0'<<endl;
+        aa+=s[1]-'0';
 
-    for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;
-        graph[u].pb(v);
-    }
-    memset(in, 0, sizeof(in));
-    dfs(1);
-
-    for(int i=1; i<=node; i++){
-        cout<<"   "<<" in/out"<<endl;
-        cout<<i<<" -> "<<in[i]<<"/"<<out[i]<<endl;
-        cout<<endl;
+        cout<<aa<<endl;
     }
 
 

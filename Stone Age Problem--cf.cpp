@@ -29,6 +29,7 @@
 #define     powerOfTwo(x)   (x && !(x & (x - 1)))
 #define     Iterator(type)  type <int> :: iterator
 #define     mapIterator     map <int,int> :: iterator //it->ff it->ss
+#define     fast ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 using namespace std;
 
 /*----------------------Graph Moves----------------*/
@@ -80,46 +81,88 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>graph[1000+7];
+#define mx 1000005
+int arr[mx];
+int tree[4*mx];
 
-int in[1000+7], out[1000+7];
-int tme = 1;
-
-void dfs(int par){
-    if(in[par]==0){
-        in[par] = tme;
-        ++tme;
+void init(int node, int b, int e){
+    if(b==e){
+        tree[node] = arr[b];
+        return ;
     }
 
-    for(int i=0; i<graph[par].size(); i++){
-        int v = graph[par][i];
+    int left = node*2;
+    int right = (node*2)+1;
+    int mid = (b+e)/2;
+    init(left, b, mid);
+    init(right, mid+1, e);
+    tree[node] = tree[left] + tree[right];
+}
 
-        if(in[v]==0){
-            dfs(v);
-        }
+int query(int node, int b, int e, int i, int j){
+    if(i>e ||j<b) return 0;
+    if(b>=i && e<=j)  return tree[node];
+    int left = node*2;
+    int right = left+1;
+    int mid = (b+e)/2;
+
+    int q1 = query(left, b, mid, i, j);
+    int q2 = query(right, mid+1, e, i, j);
+    return q1 + q2;
+}
+
+void update(int node, int b, int e, int i, int val){
+    if(i>e || i<b) return ;
+    if(b==e){
+        tree[node] = val;
+        return ;
     }
-    out[par] = tme;
-    ++tme;
+    int left = node*2;
+    int right = node*2 + 1;
+    int mid = (b+e)/2;
+    update(left, b, mid, i, val);
+    update(right, mid+1, e, i, val);
+    tree[node] = tree[left] + tree[right];
 }
 
 int main()
 {
-    int node, edge;
-    cin>>node>>edge;
+    fast
 
-    for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;
-        graph[u].pb(v);
-    }
-    memset(in, 0, sizeof(in));
-    dfs(1);
+    int n, q;
+    cin>>n>>q;
 
-    for(int i=1; i<=node; i++){
-        cout<<"   "<<" in/out"<<endl;
-        cout<<i<<" -> "<<in[i]<<"/"<<out[i]<<endl;
-        cout<<endl;
+    for(int i=0; i<n; i++){
+        cin>>arr[i];
     }
 
+    while(q--){
+        int x;
+        cin>>x;
 
-    return Accepted;
+        if(x==1){
+            int a, b;
+            cin>>a>>b;
+
+            init(1, 0, n);
+            update(1, 0, n, a, b);
+            int ans = query(1, 0, n, )
+        }
+    }
+
+
+//    cout<<"Enter number of elements: ";
+//    int n; cin>>n;
+//    int arr[n+1];
+//    arr[0] = 0;
+//    cout<<endl<<"Enter values: ";
+//    while(n--){
+//        int x; cin>>x;
+//    }
+//    init(1, 1, 7);
+//    update(1,1,7,4,10);
+//    cout<<tree[11];
+//    return 0;
+
 }
+

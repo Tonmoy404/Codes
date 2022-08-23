@@ -87,15 +87,20 @@ int lvl[10000+7];
 void bfs(int node){
     vis[node] = true;
     lvl[node] = 0;
+
     queue<int>q;
     q.push(node);
+
     while(!q.empty()){
         int u = q.front();
         q.pop();
 
-        priority_queue<int>qq;
+//        priority_queue<int>qq;
+
+
         for(int i=0; i<graph[u].size(); i++){  //finding out all nodes connected to 'u'
             int v = graph[u][i];
+
             if(vis[v]==false){
                 vis[v] = true;    //if not visited, just visiting that
                 lvl[v] = lvl[u]+1;  //adding distance
@@ -107,10 +112,12 @@ void bfs(int node){
 
 int main()
 {
-    int node, edge; cin>>node>>edge;  //taking numbers of node and edge as input
+    int node, edge;
+    cin>>node>>edge;  //taking numbers of node and edge as input
 
     for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;    //making list (connection)
+        int u, v;
+        cin>>u>>v;    //making list (connection)
         graph[u].push_back(v);
         graph[v].push_back(u);
     }

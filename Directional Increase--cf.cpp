@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define     fast ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 #define     ll              long long
 #define     ull             unsigned long long
 #define     db              double
@@ -12,6 +13,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -80,44 +83,36 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
-vector<int>graph[1000+7];
 
-int in[1000+7], out[1000+7];
-int tme = 1;
+int main(){
+    fast
 
-void dfs(int par){
-    if(in[par]==0){
-        in[par] = tme;
-        ++tme;
-    }
+    int t;
+    cin>>t;
 
-    for(int i=0; i<graph[par].size(); i++){
-        int v = graph[par][i];
+    while(t--){
+        vector<int>pos, neg;
 
-        if(in[v]==0){
-            dfs(v);
+        int n;
+        cin>>n;
+
+        for(int i=0; i<n; i++){
+            int x; cin>>x;
+            if(x<0){
+                neg.pb(x);
+            }
+            else pos.pb(x);
         }
-    }
-    out[par] = tme;
-    ++tme;
-}
 
-int main()
-{
-    int node, edge;
-    cin>>node>>edge;
+        int ans1 = accumulate(pos.begin(), pos.end(), 0);
+        int ans2 = accumulate(neg.begin(), neg.end(), 0);
 
-    for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;
-        graph[u].pb(v);
-    }
-    memset(in, 0, sizeof(in));
-    dfs(1);
+        cout<<ans1<<" "<<ans2<<endl;
 
-    for(int i=1; i<=node; i++){
-        cout<<"   "<<" in/out"<<endl;
-        cout<<i<<" -> "<<in[i]<<"/"<<out[i]<<endl;
-        cout<<endl;
+        if((ans1+ans2)==0){
+            cyes;
+        }
+        else cno;
     }
 
 

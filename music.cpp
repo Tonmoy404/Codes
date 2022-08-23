@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#define     fast ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 #define     ll              long long
 #define     ull             unsigned long long
 #define     db              double
@@ -12,6 +13,8 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
+#define     cyes            cout<<"YES"<<endl;
+#define     cno             cout<<"NO"<<endl;
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -78,48 +81,51 @@ inline unsigned long long getunsignedlonglong(){
 }
 #define ULL getunsignedlonglong()
 
-//*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
+//*-*  -  -  -  -  -  -  -  -  -  -  -  -
 
-vector<int>graph[1000+7];
 
-int in[1000+7], out[1000+7];
-int tme = 1;
 
-void dfs(int par){
-    if(in[par]==0){
-        in[par] = tme;
-        ++tme;
-    }
+int main(){
+//    fast
 
-    for(int i=0; i<graph[par].size(); i++){
-        int v = graph[par][i];
+    int t;
+    cin>>t;
 
-        if(in[v]==0){
-            dfs(v);
+    while(t--){
+        vector<int>v;
+
+        int n, k;
+        cin>>n>>k;
+
+        for(int i=0; i<k; i++){
+            int x; cin>>x;
+            v.pb(x);
         }
+
+        sort(v.begin(), v.end());
+
+        int sum = 0;
+        int ans = 0;
+        int ans2 = 0;
+
+        vector<int>ok;
+        sum = v[0];
+        for(int i=1; i<v.size(); i++){
+
+            if(sum <= n){
+                sum += v[i];
+            }
+            if(sum>n){
+                int idx = i;
+                sum -= v[i-1];
+            }
+            ans = max(ans,sum);
+        }
+        ok.pb(sum);
+        ans = max(ans,sum);
+
+        cout<<ans<<endl;
     }
-    out[par] = tme;
-    ++tme;
-}
 
-int main()
-{
-    int node, edge;
-    cin>>node>>edge;
-
-    for(int i=0; i<edge; i++){
-        int u, v; cin>>u>>v;
-        graph[u].pb(v);
-    }
-    memset(in, 0, sizeof(in));
-    dfs(1);
-
-    for(int i=1; i<=node; i++){
-        cout<<"   "<<" in/out"<<endl;
-        cout<<i<<" -> "<<in[i]<<"/"<<out[i]<<endl;
-        cout<<endl;
-    }
-
-
-    return Accepted;
+    return 0;
 }
