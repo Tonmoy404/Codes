@@ -15,7 +15,7 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cone            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -85,3 +85,76 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 
+void call(){
+    map<char, int>mp;
+    mp['S'] = 1;
+    mp['M'] = 2;
+    mp['L'] = 3;
+
+    vector<char>v;
+
+    string s, t;
+    cin>>s>>t;
+
+    for(int i=0; i<s.size(); i++){
+        if(s[i]!='X'){
+            v.pb(s[i]);
+        }
+    }
+
+    for(int i=0; i<t.size(); i++){
+        if(t[i] != 'X'){
+            v.pb(t[i]);
+        }
+    }
+
+    if(v[0]==v[1]){
+        if(v[0]=='S'){
+            if(s.size()==t.size()){
+                cout<<"="<<endl;
+            }
+            else if(s.size()<t.size()){
+                cout<<">"<<endl;
+            }
+            else{
+                cout<<"<"<<endl;
+            }
+        }
+        else if(v[0]=='L'){
+            if(s.size()==t.size()){
+                cout<<"="<<endl;
+            }
+            else if(s.size()<t.size()){
+                cout<<"<"<<endl;
+            }
+            else{
+                cout<<">"<<endl;
+            }
+        }
+        else{
+            cout<<"="<<endl;
+        }
+    }
+
+    else{
+        if(mp[v[0]] < mp[v[1]]){
+            cout<<"<"<<endl;
+        }
+        else{
+            cout<<">"<<endl;
+        }
+    }
+}
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        call();
+    }
+
+    return Accepted;
+}

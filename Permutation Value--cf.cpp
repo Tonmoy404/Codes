@@ -85,3 +85,28 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 
+
+void solve(){
+
+    int n;
+    cin>>n;
+
+    for(int i=2; i<=n; i++){
+        cout<<i<<" ";
+    }
+    cout<<1<<endl;
+
+}
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        solve();
+    }
+
+    return Accepted;
+}

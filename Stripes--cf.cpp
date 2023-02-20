@@ -15,7 +15,7 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cone            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -84,4 +84,51 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void call(){
 
+    char arr[8][8];
+
+    for(int i=0; i<8; i++){
+        for(int j=0; j<8; j++){
+            cin>>arr[i][j];
+        }
+    }
+
+    int R_count = 0;
+    bool flag = 0;
+
+    for(int i=0; i<8; i++){
+        for(int j=0; j<8; j++){
+            if(arr[i][j]=='R'){
+                R_count++;
+            }
+        }
+
+        if(R_count==8){
+           flag = 1;
+        }
+        else {
+            R_count = 0;
+        }
+    }
+
+    if(flag){
+        cout<<"R"<<endl;
+    }
+    else{
+        cout<<"B"<<endl;
+    }
+}
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        call();
+    }
+
+    return Accepted;
+}

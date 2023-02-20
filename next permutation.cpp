@@ -33,5 +33,7 @@ int main(){
         cout<<x<<endl;
     }
 
+    cout<<s<<endl;
+
     return 0;
 }

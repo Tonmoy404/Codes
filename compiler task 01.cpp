@@ -85,3 +85,62 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 
+void call(string s){
+    map<char, int>mp;
+
+    int idx = 0;
+    string t ="";
+
+    for(int i=0; i<s.size(); i++){
+        if(s[i]=='='){
+            idx = i;
+            break;
+        }
+
+        t+=s[i];
+    }
+
+    cout<<t<<" -> a variable"<<endl;
+
+    int numeric =0;
+
+    for(int i=idx+1; i<s.size(); i++){
+        if(s[i]>=67 && s[i]<=122){
+            if(!mp[s[i]]){
+                cout<<s[i]<<" -> a identifier"<<endl;
+            }
+        }
+
+        else if(s[i]>=40 && s[i]<=47){
+            if(!mp[s[i]]){
+                cout<<s[i]<<" -> an operator"<<endl;
+            }
+        }
+        else if(s[i]>=48 && s[i]<=57){
+            numeric += s[i] - '0';
+            numeric*=10;
+            continue;
+        }
+
+        mp[s[i]]++;
+    }
+
+    cout<<">>>-- TOTAL COUNT ---<<<"<<endl;
+
+    for(auto x: mp){
+        cout<<x.ff<<"  appears "<<x.ss<<" times"<<endl;
+    }
+    cout<<endl<<"Numeric VALUE: "<<numeric/10<<endl;
+}
+
+signed main(){
+    //fast
+
+    cout<<"Enter Equation: ";
+    string s;
+    cin>>s;
+
+    call(s);
+
+    return Accepted;
+}

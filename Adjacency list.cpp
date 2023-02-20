@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 int main(){
-    vector<int>graph[10];
+    vector<int>graph[5];
 
     cout<<"Enter number of edges and nodes: ";
 
@@ -16,8 +16,7 @@ int main(){
         graph[v].push_back(u);
     }
 
-    ;
-    for(int i=0; i<1000; i++){
+    for(int i=0; i<5; i++){
         cout<<"Adjacent list of nodes "<<i<<" are ";
             for(auto x: graph[i]){
                 cout<<" = "<<x;

@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define     fast ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
 #define     ll              long long
@@ -15,7 +16,6 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -85,3 +85,30 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 
+int main(){
+    fast
+
+    int n;
+    cin>>n;
+
+    map<int, int>mp;
+
+    for(int i=0; i<n; i++){
+        int x;
+        cin>>x;
+        mp[x]++;
+    }
+
+    int maxx = INT_MIN, ans = 0;
+
+
+    for(auto x: mp){
+        if(x.ss> maxx){
+            maxx = x.ss;
+        }
+    }
+
+    cout<<maxx<<endl;
+
+    return Accepted;
+}

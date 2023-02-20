@@ -15,7 +15,7 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cone            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -85,3 +85,67 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 
+void call(){
+    int n, q;
+    cin>>n>>q;
+
+    vector<ll>even, odd;
+
+    ll oddSum = 0, evenSum = 0;
+
+    for(int i=0; i<n; i++){
+        ll x;
+        cin>>x;
+
+        if(x%2==0){
+            even.pb(x);
+            evenSum+=x;
+        }
+        else odd.pb(x), oddSum+=x;
+    }
+
+    int oddcnt = odd.size();
+    int evencnt = even.size();
+
+    while(q--){
+
+        ll a, b;
+        cin>>a>>b;
+
+        if(a==0){
+            ll ans = b * evencnt;;
+            evenSum += ans;
+
+            cout<<oddSum + evenSum<<endl;
+
+            if(b%2!=0){
+                oddcnt += evencnt;
+                evencnt = 0;
+            }
+        }
+        else{
+            ll ans = b * oddcnt;
+            oddSum += ans;
+
+            cout<<oddSum + evenSum<<endl;
+
+            if(b%2!=0){
+                evencnt += oddcnt;
+                oddcnt = 0;
+            }
+        }
+    }
+}
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        call();
+    }
+
+    return Accepted;
+}

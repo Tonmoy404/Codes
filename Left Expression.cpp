@@ -84,4 +84,39 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+bool check(string s){
+
+    if(s[3] != s[0]){
+        for(int i=4; i<s.size(); i++){
+            if(s[i]=='|' && s[i+1]==s[0]){
+                return true;
+            }
+        }
+        return false;
+    }
+    else return true;
+}
+
+
+signed main(){
+
+    cout<<"Enter your Expression: ";
+    string s;
+    cin>>s;
+
+    bool flag = 0;
+
+    if(check(s)){
+        cout<<"Recursion Exist..!!"<<endl;
+        flag = 1;
+    }
+    else cout<<"No Recursion was found.."<<endl;
+
+    if(flag){
+        cout<<"  ♠ Tap  1  to evaluate the Expression \n♠ Tap  2  to Quit"<<endl;
+
+    }
+
+    return Accepted;
+}
 

@@ -15,7 +15,7 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cone            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -84,4 +84,48 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void call(){
 
+    int n;
+    cin>>n;
+
+    map<int, char>mp;
+
+    vector<int>v;
+
+    for(int i=0; i<n; i++){
+        int x;
+        cin>>x;
+        v.pb(x);
+    }
+
+    string s;
+    cin>>s;
+
+    for(int i=0; i<v.size(); i++){
+        if(mp[v[i]]){
+            if(mp[v[i]] != s[i]){
+                cno;
+                return ;
+            }
+        }
+
+        mp[v[i]] = s[i];
+    }
+
+    cyes;
+
+}
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        call();
+    }
+
+    return Accepted;
+}

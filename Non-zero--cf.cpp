@@ -15,7 +15,7 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cone            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -84,4 +84,65 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void call(){
+    int n;
+    cin>>n;
 
+    vector<int>pos;
+    vector<int>neg;
+
+    int zero = 0;
+
+    for(int i=0; i<n; i++){
+        int x;
+        cin>>x;
+        if(x<0){
+            neg.push_back(x);
+        }
+        else if(x>0){
+            pos.push_back(x);
+        }
+        else zero++;
+    }
+
+    int ans1 = accumulate(pos.begin(), pos.end(), 0);
+
+    int ans2 = abs(accumulate(neg.begin(), neg.end(), 0));
+
+    if(!zero){
+        if(ans1==ans2){
+            cout<<"1"<<endl;
+        }
+        else{
+            cout<<"0"<<endl;
+        }
+    }
+
+    else{
+        if(ans1==ans2){
+            cout<<zero<<endl;
+        }
+        else{
+            if((ans1+zero)==ans2){
+                cout<<zero+1<<endl;
+            }
+            else{
+                cout<<zero<<endl;
+            }
+        }
+    }
+}
+
+
+
+signed main(){
+
+    int t;
+    cin>>t;
+
+    while(t--){
+       call();
+    }
+
+    return Accepted;
+}

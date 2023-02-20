@@ -15,7 +15,6 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -84,4 +83,56 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void call(){
+    int n;
+    cin>>n;
 
+    string s;
+    cin>>s;
+
+    map<int, bool>mp;
+    vector<int>v(1000);
+
+    for(int i=0; i<s.size(); i++){
+        if(s[i]=='0' && s[i+1]=='0'){
+            int ans = (s[i-1]-'0')*10;
+            ans += s[i]-'0';
+            v[i-1] = ans;
+            mp[i-1] = 1;
+            ++i;
+            continue;
+        }
+        else if(s[i]=='0'){
+            int ans = (s[i-2]-'0')*10;
+            ans += s[i-1]-'0';
+            v[i-2] = ans;
+            mp[i-2] = 1;
+
+        }
+    }
+
+    for(int i=0; i<s.size(); i++){
+        if(mp[i]){
+            printf("%c", v[i]+96);
+            i+=2;
+        }
+        else{
+            int ans = s[i]-'0';
+            printf("%c", ans+96);
+        }
+    }
+    cout<<endl;
+}
+
+int main(){
+
+    int t;
+    cin>>t;
+
+    while(t--){
+       call();
+    }
+
+
+    return 0;
+}

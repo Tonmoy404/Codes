@@ -13,9 +13,9 @@
 #define     plll            pair <ll,pll>
 #define     ff              first
 #define     ss              second
-#define     cyes            cout<<"YES"<<endl;
-#define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cyes            cout<<"Yes"<<endl;
+#define     cno             cout<<"No"<<endl;
+#define     neg            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -84,4 +84,51 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void call(){
+    int n;
+    cin>>n;
 
+    string s;
+    cin>>s;
+
+    int cnt=0;
+
+    if(s[0]=='A' || s[s.size()-1]=='Q'){
+        cno;
+        return ;
+    }
+
+    for(int i=0; i<s.size(); i++){
+
+        if(s[i]=='Q'){
+            cnt++;
+        }
+
+        else if(s[i]=='A'){
+            cnt--;
+
+            if(cnt<0){
+                cnt = 0;
+            }
+        }
+    }
+
+    if(cnt==0){
+        cyes;
+    }
+    else cno;
+}
+
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        call();
+    }
+
+    return Accepted;
+}

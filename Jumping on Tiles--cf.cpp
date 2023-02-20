@@ -15,7 +15,7 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cone            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -84,4 +84,64 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+map<char, int>mp;
+int num=1;
 
+void pre(){
+    for(char  i='a'; i<='z'; i++){
+        mp[i] = num;
+        ++num;
+    }
+}
+
+int main(){
+    fast
+
+    pre();
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        map<int, bool>mark;
+        map<char, int> path;
+
+        vector<int>v;
+
+        string s;
+        cin>>s;
+        string p = s;
+
+        for(int i=0; i<s.size(); i++){
+            path[s[i]] = (i+1);
+        }
+
+        int ans = abs((int(s[0])-96)-(int(s[s.size()-1]-96)));
+
+        sort(p.begin(), p.end());
+
+        int res = 0;
+
+        for(int i=0; i<p.size()-1; i++){
+            if(res>=ans){
+                break;
+            }
+            int val = abs(mp[p[i]]-mp[p[i+1]]);
+            int ans = path[p[i]];
+            int ans2 = path[p[i+1]];
+            v.pb(ans);
+            v.pb(ans2);
+
+            res += val;
+        }
+
+        cout<<res<<endl<<endl;
+
+        for(auto x: v){
+            cout<<x<<endl;
+        }
+    }
+
+
+    return 0;
+}

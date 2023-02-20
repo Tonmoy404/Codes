@@ -15,7 +15,6 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -85,3 +84,84 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 
+int main(){
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        int a, b, c;
+        cin>>a>>b>>c;
+
+        int res = 0;
+
+        int ans = max3(a, b, c);
+
+        if(ans==a){
+            if(b>c){
+                res = b-1;
+                if(ans-1 < res){
+                    cout<<"1"<<endl;
+                    continue;
+                }
+                if(ans-1 == res){
+                    cout<<"3"<<endl;
+                    continue;
+                }
+                else{
+                    cout<<"2"<<endl;
+                }
+            }
+            else{
+                res = (c-b)*2;
+                res++;
+
+                if(ans-1 < res){
+                    cout<<"1"<<endl;
+                    continue;
+                }
+                if(ans-1 == res){
+                    cout<<"3"<<endl;
+                    continue;
+                }
+                else{
+                    cout<<"2"<<endl;
+                }
+
+
+            }
+        }
+        else if(ans==b){
+            res = b-1;
+            a--;
+
+            if(a<res){
+                cout<<"1"<<endl;
+            }
+            else if(a>res){
+                cout<<"2"<<endl;
+            }
+            else cout<<"3"<<endl;
+        }
+        else{
+            res = (c-b)*2;
+            res++;
+
+            a--;
+
+            if(a<res){
+                cout<<"1"<<endl;
+            }
+            else if(a>res){
+                cout<<"2"<<endl;
+            }
+            else{
+                cout<<"3"<<endl;
+            }
+        }
+    }
+
+
+
+    return 0;
+}

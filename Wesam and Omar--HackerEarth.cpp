@@ -15,7 +15,6 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -84,4 +83,35 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+char arr[3][3];
 
+bool check(){
+    if(arr[1][1]=='.') return 1;
+    if(arr[0][1]=='.' && arr[1][2]=='.') return 1;
+    if(arr[1][0]=='.' && arr[2][1]=='.') return 1;
+    else return 0;
+}
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+
+        for(int i=0; i<3; i++){
+            for(int j=0; j<3; j++){
+                cin>>arr[i][j];
+            }
+        }
+
+        if(check()){
+            cyes;
+        }
+        else cno;
+    }
+
+
+    return Accepted;
+}

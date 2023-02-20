@@ -84,4 +84,40 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void solve(){
+
+    string x, y, s="";
+    cin>>x>>y;
+
+    for(int i=0; i<x.size(); i++){
+        if(x[i] < y[i]){
+            cneg;
+            return ;
+        }
+
+        else if(x[i] == y[i]){
+            if(x[i]=='z'){
+                s+=x[i];
+            }
+            else{
+                s+=x[i]+1;
+            }
+        }
+
+        else{
+            s+= min(x[i], y[i]);
+        }
+
+
+    }
+    cout<<s<<endl;
+}
+
+signed main(){
+    fast
+
+    solve();
+
+    return Accepted;
+}
 

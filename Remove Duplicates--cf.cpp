@@ -84,4 +84,45 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void solve(){
 
+    int n;
+    cin>>n;
+
+    vector<int>v;
+    set<int>st;
+    map<int, int>mp;
+
+    for(int i=0; i<n; i++){
+        int x;
+        cin>>x;
+        v.pb(x);
+        st.insert(x);
+        mp[x] = i;
+    }
+
+    vector<ii>ans;
+
+    for(auto x: st){
+        ans.pb({mp[x], x});
+    }
+
+    sort(ans.begin(), ans.end());
+
+    cout<<st.size()<<endl;
+
+    for(int i=0; i<ans.size()-1; i++){
+        cout<<ans[i].ss<<" ";
+    }
+    cout<<ans[ans.size()-1].ss<<endl;
+
+
+
+}
+
+signed main(){
+    fast
+
+    solve();
+    return Accepted;
+}

@@ -8,6 +8,7 @@
 #define     MAX             INT_MAX
 #define     all(x)          (x).begin(), (x).end()
 #define     ii              pair <int,int>
+#define     ic              pair <int,char>
 #define     iii             pair <int,ii>
 #define     pll             pair <ll,ll>
 #define     plll            pair <ll,pll>
@@ -15,7 +16,7 @@
 #define     ss              second
 #define     cyes            cout<<"YES"<<endl;
 #define     cno             cout<<"NO"<<endl;
-#define     cneg            cout<<"-1"<<endl
+#define     cone            cout<<"-1"<<endl
 #define     minQueue        priority_queue <int,vector<int>,greater<int> >
 #define     maxQueue        priority_queue<int,vector<int>,less<int> >
 #define     pb              push_back
@@ -85,3 +86,88 @@ inline unsigned long long getunsignedlonglong(){
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
 
+int main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+
+        string s;
+        int cost;
+        cin>>s>>cost;
+
+        vector<ic>v, vv;
+
+        int total_cost = 0;
+
+        for(int i=0; i<s.size(); i++){
+            int ans = s[i]-96;
+            v.pb(ic(ans, s[i]));
+            vv.pb(ic(ans, s[i]));
+            total_cost += ans;
+        }
+
+        int tc = total_cost;
+//
+////        v = vv;
+//
+//        for(auto x: vv){
+//            cout<<x.ff<<" "<<x.ss<<endl;
+//        }
+
+        map<int, bool>mp1, mp2;
+
+        sort(vv.begin(), vv.end());
+
+//        if(vv[0].ff > cost){
+//            cout<<" "<<endl;
+//            continue;
+//        }
+
+        for(int i=0; i<vv.size(); i++){
+            if(total_cost <= cost){
+                break;
+            }
+
+            total_cost -= vv[i].ff;
+            mp1[i] = 1;
+        }
+
+        sort(v.rbegin(), v.rend());
+
+        for(int i=0; i<v.size(); i++){
+            if(tc <= cost){
+                break;
+            }
+
+            tc -= v[i].ff;
+            mp2[i] = 1;
+        }
+
+        int first = cost - total_cost;
+        int second = cost - tc;
+
+        if(first < second){
+            for(int i=0; i<vv.size(); i++){
+                if(!mp1[i]){
+                    cout<<vv[i].ss;
+                }
+
+            }
+            cout<<endl;
+        }
+        else{
+            for(int i=0; i<v.size(); i++){
+                if(!mp2[i]){
+                    cout<<v[i].ss;
+                }
+            }
+            cout<<endl;
+        }
+
+    }
+
+    return 0;
+}

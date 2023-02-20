@@ -84,4 +84,43 @@ inline unsigned long long getunsignedlonglong(){
 
 //*-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-* *-*  *-*  *-*  *-*  *-*
 
+void solve(){
 
+    string s;
+    cin>>s;
+
+    int ab = 0, ba = 0;
+
+    for(int i=0; i<s.size(); i++){
+        if(s[i]=='a' && s[i+1]=='b'){
+            ab++;
+        }
+        else if(s[i]=='b' && s[i+1]=='a'){
+            ba++;
+        }
+    }
+
+    if(ab<ba){
+        s[0] = 'a';
+    }
+    else if(ab>ba){
+        s[0] = 'b';
+    }
+
+    cout<<s<<endl;
+
+
+}
+
+signed main(){
+    fast
+
+    int t;
+    cin>>t;
+
+    while(t--){
+        solve();
+    }
+
+    return Accepted;
+}
